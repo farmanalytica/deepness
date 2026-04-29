@@ -1,7 +1,6 @@
 """ Module including the base model interfaces and utilities"""
 import ast
 import json
-import os
 from typing import List, Optional
 
 import numpy as np
@@ -9,14 +8,20 @@ import numpy as np
 from deepness.common.lazy_package_loader import LazyPackageLoader
 from deepness.common.processing_parameters.standardization_parameters import StandardizationParameters
 
-# WORKAROUND: Add CUDA to PATH if not already there
-# This fixes the issue where QGIS doesn't inherit CUDA in PATH
-_cuda_path = r"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.1\bin"
-if os.path.exists(_cuda_path) and _cuda_path not in os.environ.get('PATH', ''):
-    print(f"[CUDA FIX] Adding CUDA to PATH: {_cuda_path}")
-    os.environ['PATH'] = _cuda_path + os.pathsep + os.environ.get('PATH', '')
-
 ort = LazyPackageLoader('onnxruntime')
+
+
+def _preload_onnxruntime_gpu_dependencies() -> None:
+    """Best-effort preload of CUDA/cuDNN/MSVC DLLs for supported ONNX Runtime versions."""
+    preload_dlls = getattr(ort, 'preload_dlls', None)
+    if not callable(preload_dlls):
+        return
+
+    try:
+        preload_dlls()
+        print("[ONNXRuntime] Preloaded GPU runtime DLLs")
+    except Exception as exc:
+        print(f"[ONNXRuntime] DLL preload skipped: {type(exc).__name__}: {exc}")
 
 
 class ModelBase:
@@ -33,6 +38,7 @@ class ModelBase:
             Path to the model file
         """
         self.model_file_path = model_file_path
+        _preload_onnxruntime_gpu_dependencies()
 
         options = ort.SessionOptions()
         options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
