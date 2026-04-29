@@ -86,7 +86,7 @@ elif sys.platform == "darwin":  # MacOS
     PYTHON_EXECUTABLE_PATH = str(Path(sys.prefix) / 'bin' / 'python3')  # sys.executable yields QGIS in macOS
 elif sys.platform == "win32":
     packages_to_install += [
-        PackageToInstall(name='onnxruntime', version=libraries_versions['onnxruntime-gpu'], import_name='onnxruntime'),
+        PackageToInstall(name='onnxruntime-gpu', version=libraries_versions['onnxruntime-gpu'], import_name='onnxruntime'),
     ]
     PYTHON_EXECUTABLE_PATH = 'python'  # sys.executable yields QGis.exe in Windows
 else:

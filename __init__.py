@@ -56,6 +56,9 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """
+    from deepness.common.gpu_diagnostics import print_startup_gpu_diagnostics
+    print_startup_gpu_diagnostics()
+
     from deepness.dialogs.packages_installer import packages_installer_dialog
     packages_installer_dialog.check_required_packages_and_install_if_necessary(iface=iface)
 
