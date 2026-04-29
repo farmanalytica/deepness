@@ -4,8 +4,11 @@
 
 ### 1. QGIS 3.44.3 or later
 - Download from https://qgis.org/download/
-- Install to default location
-- Verify installation works
+- **Custom install path (optional):** 
+  - Choose custom install location: `C:\QGIS\`
+  - Or use default: `C:\Program Files\QGIS 3.44.3\`
+- Complete installation
+- Verify: Open QGIS and confirm it loads
 
 ### 2. CUDA + cuDNN (Optional - for GPU acceleration)
 
@@ -26,9 +29,12 @@
 ## Install Deepness Plugin
 
 ### Step 1: Locate QGIS Plugins Folder
+Plugins folder is **always** here, regardless of QGIS install location:
 ```
 C:\Users\[YourUsername]\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\
 ```
+
+Or open QGIS → Settings → User Profiles → Open Active Profile Folder → `python/plugins/`
 
 ### Step 2: Extract Plugin ZIP
 - Download `deepness.zip` 
