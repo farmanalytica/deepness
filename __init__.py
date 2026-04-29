@@ -18,14 +18,28 @@ def _unique_existing_dirs(paths):
 
 def _iter_windows_gpu_lib_paths():
     """Yield candidate CUDA/cuDNN directories on Windows."""
-    env_candidates = [
+    cuda_env_candidates = [
         os.path.join(os.environ.get('CUDA_PATH', ''), 'bin'),
         os.path.join(os.environ.get('CUDA_HOME', ''), 'bin'),
+    ]
+    cudnn_env_candidates = [
         os.path.join(os.environ.get('CUDNN_PATH', ''), 'bin'),
         os.environ.get('CUDNN_BIN_PATH', ''),
     ]
-    glob_candidates = sorted(glob.glob(r"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v*\bin"), reverse=True)
-    glob_candidates += sorted(glob.glob(r"C:\Program Files\NVIDIA\CUDNN\*\bin"), reverse=True)
+
+    cuda_glob_candidates = []
+    if not any(os.path.isdir(path) for path in cuda_env_candidates):
+        cuda_glob_candidates = sorted(glob.glob(r"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v*\bin"), reverse=True)
+
+    cudnn_glob_candidates = []
+    for dll_path in glob.glob(r"C:\Program Files\NVIDIA\CUDNN\**\cudnn*.dll", recursive=True):
+        cudnn_glob_candidates.append(os.path.dirname(dll_path))
+
+    env_candidates = [
+        *cuda_env_candidates,
+        *cudnn_env_candidates,
+    ]
+    glob_candidates = cuda_glob_candidates + sorted(cudnn_glob_candidates, reverse=True)
 
     yield from _unique_existing_dirs(env_candidates + glob_candidates)
 
