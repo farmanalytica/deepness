@@ -2,28 +2,24 @@
 import os
 import sys
 
-# CRITICAL FIX: Add CUDA and cuDNN to PATH before any imports
-# ONNX Runtime needs CUDA + cuDNN DLLs in PATH to use GPU
-_cuda_bin = r"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v13.1\bin"
-_cudnn_bin = r"C:\Program Files\NVIDIA\CUDNN\v9.17\bin\12.9"
+# Auto-detect CUDA/cuDNN paths. ONNX Runtime needs them in PATH for GPU support.
+import glob
+_cuda_paths = glob.glob(r"C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v*\bin")
+_cudnn_paths = glob.glob(r"C:\Program Files\NVIDIA\CUDNN\*\bin\*")
 
-for lib_path, lib_name in [(_cuda_bin, "CUDA"), (_cudnn_bin, "cuDNN")]:
-    if os.path.exists(lib_path):
-        # Method 1: Add to PATH environment variable
-        current_path = os.environ.get('PATH', '')
-        if lib_path not in current_path:
-            os.environ['PATH'] = lib_path + os.pathsep + current_path
-            print(f"[Deepness {lib_name} Fix] Added to PATH: {lib_path}")
-        
-        # Method 2: Use os.add_dll_directory() for Python 3.8+ (more reliable)
-        if sys.version_info >= (3, 8) and hasattr(os, 'add_dll_directory'):
-            try:
-                os.add_dll_directory(lib_path)
-                print(f"[Deepness {lib_name} Fix] Added DLL directory: {lib_path}")
-            except Exception as e:
-                print(f"[Deepness {lib_name} Fix] Warning: Could not add DLL directory: {e}")
-    else:
-        print(f"[Deepness {lib_name} Fix] WARNING: {lib_name} not found at {lib_path}")
+for lib_path, lib_name in [(_cuda_paths, "CUDA"), (_cudnn_paths, "cuDNN")]:
+    for path in lib_path:
+        if os.path.exists(path):
+            current_path = os.environ.get('PATH', '')
+            if path not in current_path:
+                os.environ['PATH'] = path + os.pathsep + current_path
+                print(f"[Deepness] Added to PATH: {path}")
+
+            if sys.version_info >= (3, 8) and hasattr(os, 'add_dll_directory'):
+                try:
+                    os.add_dll_directory(path)
+                except Exception:
+                    pass
 
 # increase limit of pixels (2^30), before importing cv2.
 # We are doing it here to make sure it will be done before importing cv2 for the first time
