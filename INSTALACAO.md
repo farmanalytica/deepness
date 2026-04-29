@@ -5,12 +5,12 @@
 ### 1. QGIS 3.44.3 ou posterior
 - Baixe em https://qgis.org/download/
 - **Caminho personalizado (opcional):**
-  - Escolha local personalizado: `C:\QGIS\`
-  - Ou use padrão: `C:\Program Files\QGIS 3.44.3\`
+  - Escolha : `C:\QGIS\`
+  - NÂO em: `C:\Program Files\
 - Conclua a instalação
 - Verifique: Abra QGIS e confirme que carrega
 
-### 2. CUDA + cuDNN (Opcional - para aceleração GPU)
+### 2. CUDA + cuDNN 
 
 **CUDA 12.4 ou 13.x:**
 - Baixe em https://developer.nvidia.com/cuda-toolkit
@@ -22,24 +22,19 @@
 - Extraia para `C:\Program Files\NVIDIA\CUDNN\`
 - Verifique DLLs em `C:\Program Files\NVIDIA\CUDNN\v9.17\bin\`
 
-> Sem CUDA/cuDNN, o plugin funciona em CPU (mais lento, mas funcional)
 
 ---
 
 ## Instalar Plugin Deepness
 
-### Passo 1: Localize a Pasta de Plugins do QGIS
-A pasta de plugins está **sempre** aqui, independente do local de instalação do QGIS:
-```
-C:\Users\[SeuUsuário]\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\
-```
+### Passo 1: Abrir Gerenciador de Plugins do QGIS
+- QGIS → Extensões → Gerenciar e Instalar Extensões
 
-Ou abra QGIS → Configurações → Perfis de Usuário → Abrir Pasta do Perfil Ativo → `python/plugins/`
-
-### Passo 2: Extrair Plugin ZIP
-- Baixe `deepness.zip`
-- Extraia para a pasta de plugins acima
-- Resultado: Pasta `...\plugins\deepness\` com `__init__.py`, `deepness.py`, etc.
+### Passo 2: Instalar a partir de ZIP
+- Clique na aba **"Instalar a partir de ZIP"**
+- Selecione o arquivo `deepness.zip`
+- Clique em **"Instalar extensão"**
+- Aguarde a instalação
 
 ### Passo 3: Reinicie QGIS
 - Feche QGIS completamente

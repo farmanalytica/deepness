@@ -28,18 +28,14 @@
 
 ## Install Deepness Plugin
 
-### Step 1: Locate QGIS Plugins Folder
-Plugins folder is **always** here, regardless of QGIS install location:
-```
-C:\Users\[YourUsername]\AppData\Roaming\QGIS\QGIS3\profiles\default\python\plugins\
-```
+### Step 1: Open QGIS Plugin Manager
+- QGIS → Plugins → Manage and Install Plugins
 
-Or open QGIS → Settings → User Profiles → Open Active Profile Folder → `python/plugins/`
-
-### Step 2: Extract Plugin ZIP
-- Download `deepness.zip` 
-- Extract to plugins folder above
-- Result: `...\plugins\deepness\` folder with `__init__.py`, `deepness.py`, etc.
+### Step 2: Install from ZIP
+- Click **"Install from ZIP"** tab
+- Select `deepness.zip` file
+- Click **"Install Plugin"**
+- Wait for installation to complete
 
 ### Step 3: Restart QGIS
 - Close QGIS completely
