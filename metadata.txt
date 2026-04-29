@@ -22,8 +22,8 @@ about=
      - parametrization of the processing for advanced users (spatial resolution, overlap, postprocessing)
     Plugin requires external python packages to be installed. After the first plugin startup, a Dialog will show, to assist in this process. Please visit plugin the documentation for details.
 
-tracker=https://github.com/PUTvision/qgis-plugin-deepness/issues
-repository=https://github.com/PUTvision/qgis-plugin-deepness
+tracker=https://github.com/farmanalytica/deepness/issues
+repository=https://github.com/farmanalytica/deepness
 # End of mandatory metadata
 
 # Recommended items:
@@ -35,7 +35,7 @@ hasProcessingProvider=no
 # Tags are comma separated with spaces allowed
 tags=segmentation,detection,classification,machine learning,onnx,neural network,deep learning,regression,deepness,analysis,remote sensing,supervised classification
 
-homepage=https://qgis-plugin-deepness.readthedocs.io/
+homepage=https://github.com/farmanalytica/deepness
 category=Plugins
 icon=images/icon.png
 # experimental flag
