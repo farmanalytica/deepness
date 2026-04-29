@@ -44,7 +44,7 @@ class PackageToInstall:
         return f'{self.name}{self.version}'
 
 
-REQUIREMENTS_PATH = os.path.join(PLUGIN_ROOT_DIR, 'python_requirements/requirements.txt')
+REQUIREMENTS_PATH = os.path.join(PLUGIN_ROOT_DIR, 'python_requirements', 'requirements.txt')
 
 with open(REQUIREMENTS_PATH, 'r') as f:
     raw_txt = f.read()
